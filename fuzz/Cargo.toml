@@ -1,0 +1,46 @@
+
+[package]
+name = "magpie-fuzz"
+version = "0.0.0"
+authors = ["Automatically generated"]
+publish = false
+edition = "2018"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = { version = "0.3", features = ["arbitrary-derive"] }
+lazy_static = "1.4.0"
+
+[dependencies.magpie]
+# path = ".."
+version = "0.6.0"
+
+# Prevent this from interfering with workspaces
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "legal_moves_should_place"
+path = "fuzz_targets/legal_moves_should_place.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "legal_moves_should_be_legal"
+path = "fuzz_targets/legal_moves_should_be_legal.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "illegal_moves_should_not_place"
+path = "fuzz_targets/illegal_moves_should_not_place.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "illegal_moves_should_be_illegal"
+path = "fuzz_targets/illegal_moves_should_be_illegal.rs"
+test = false
+doc = false
