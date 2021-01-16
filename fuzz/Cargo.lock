@@ -44,9 +44,9 @@ dependencies = [
 
 [[package]]
 name = "magpie"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3eadad5cc733ee61e57885a7127999a3edf2f883377286acd188c2acefd42479"
+checksum = "96f8b9d069d1825a1fb6a11a27ad3ee55e347a062007b887674713a32c8e685b"
 
 [[package]]
 name = "magpie-fuzz"

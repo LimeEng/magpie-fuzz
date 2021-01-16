@@ -1,7 +1,7 @@
 #![no_main]
 
 use libfuzzer_sys::fuzz_target;
-use magpie::othello::{OthelloBoard, PositionExt, Stone};
+use magpie::othello::{OthelloBoard, Stone, StoneExt};
 
 mod common;
 
@@ -12,7 +12,7 @@ fuzz_target!(|board: common::ShadowOthelloBoard| {
 
     let result = board
         .legal_moves_for(stone)
-        .positions()
+        .stones()
         .map(|pos| board.clone().place_stone(stone, pos))
         .all(|result| result.is_ok());
     assert!(result);

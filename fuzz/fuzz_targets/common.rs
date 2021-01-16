@@ -1,24 +1,7 @@
-use lazy_static::lazy_static;
 use libfuzzer_sys::arbitrary;
 use libfuzzer_sys::arbitrary::{Arbitrary, Unstructured};
 use magpie::othello::{OthelloBoard, OthelloError};
-use std::{
-    convert::{From, TryFrom},
-    iter::successors,
-};
-
-lazy_static! {
-    pub static ref MASKS: Vec<u64> = {
-        successors(Some(1_u64), |n| {
-            if *n == 1_u64 << 63 {
-                None
-            } else {
-                Some(n << 1)
-            }
-        })
-        .collect()
-    };
-}
+use std::convert::{From, TryFrom};
 
 #[derive(Debug, Clone)]
 pub struct ShadowOthelloBoard {
