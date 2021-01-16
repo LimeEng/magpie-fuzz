@@ -26,19 +26,7 @@ test = false
 doc = false
 
 [[bin]]
-name = "legal_moves_should_be_legal"
-path = "fuzz_targets/legal_moves_should_be_legal.rs"
-test = false
-doc = false
-
-[[bin]]
 name = "illegal_moves_should_not_place"
 path = "fuzz_targets/illegal_moves_should_not_place.rs"
-test = false
-doc = false
-
-[[bin]]
-name = "illegal_moves_should_be_illegal"
-path = "fuzz_targets/illegal_moves_should_be_illegal.rs"
 test = false
 doc = false

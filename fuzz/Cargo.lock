@@ -27,12 +27,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "lazy_static"
-version = "1.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
-
-[[package]]
 name = "libfuzzer-sys"
 version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -52,7 +46,6 @@ checksum = "96f8b9d069d1825a1fb6a11a27ad3ee55e347a062007b887674713a32c8e685b"
 name = "magpie-fuzz"
 version = "0.0.0"
 dependencies = [
- "lazy_static",
  "libfuzzer-sys",
  "magpie",
 ]
