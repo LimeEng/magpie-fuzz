@@ -1,3 +1,5 @@
+![Fuzz status](https://github.com/LimeEng/magpie-fuzz/workflows/Fuzz%20magpie%20v0.7.0/badge.svg)
+
 # Fuzzing magpie
 
 [Magpie](https://github.com/LimeEng/magpie) is an Othello library. This repository contains a number of fuzzing targets which can aid in bug hunting.
@@ -10,15 +12,7 @@ Included is a github workflow ([fuzz.yml](/.github/workflows/fuzz.yml)) which ca
 
 ## Targets
 
-### Legal moves should be legal
-
-```
-cargo fuzz run legal_moves_should_be_legal
-```
-
-Given a specific Othello board, generate all legal moves for black and check that each and every one can be individually verified as legal.
-
-### Legal moves should be able to be placed
+### Legal moves should be playable
 
 ```
 cargo fuzz run legal_moves_should_place
@@ -26,15 +20,7 @@ cargo fuzz run legal_moves_should_place
 
 Given a specific Othello board, generate all legal moves for black and check that each and every one can be placed on the board without errors.
 
-### Illegal moves should be illegal
-
-```
-cargo fuzz run illegal_moves_should_be_illegal
-```
-
-Given a specific Othello board, generate all illegal moves for black and check that each and every one can be individually verified as illegal.
-
-### Illegal moves should not be able to be placed
+### Illegal moves should not be playable
 
 ```
 cargo fuzz run illegal_moves_should_not_place
