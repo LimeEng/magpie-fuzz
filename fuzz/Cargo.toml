@@ -13,7 +13,7 @@ libfuzzer-sys = { version = "0.3", features = ["arbitrary-derive"] }
 
 [dependencies.magpie]
 # path = ".."
-version = "0.8.0"
+version = "0.9.0"
 
 # Prevent this from interfering with workspaces
 [workspace]
@@ -26,7 +26,19 @@ test = false
 doc = false
 
 [[bin]]
+name = "legal_moves_should_be_legal"
+path = "fuzz_targets/legal_moves_should_be_legal.rs"
+test = false
+doc = false
+
+[[bin]]
 name = "illegal_moves_should_not_place"
 path = "fuzz_targets/illegal_moves_should_not_place.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "illegal_moves_should_be_illegal"
+path = "fuzz_targets/illegal_moves_should_be_illegal.rs"
 test = false
 doc = false

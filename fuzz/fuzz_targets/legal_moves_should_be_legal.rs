@@ -6,14 +6,14 @@ use magpie::othello::{OthelloBoard, Stone, StoneExt};
 mod common;
 
 fuzz_target!(|board: common::ShadowOthelloBoard| {
-    // Check so that all legal moves returned can actually be placed
+    // Check so that all legal moves returned can be individually verified as legal
     let board = OthelloBoard::from(board);
     let stone = Stone::Black;
 
     let result = board
         .moves_for(stone)
         .stones()
-        .map(|pos| board.clone().place_stone(stone, pos))
-        .all(|result| result.is_ok());
+        .map(|pos| board.is_legal_move(stone, pos))
+        .all(|result| result);
     assert!(result);
 });
