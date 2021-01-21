@@ -1,4 +1,4 @@
-name: Fuzz magpie v0.8.0
+name: Fuzz magpie v0.9.0
 
 on:
   workflow_dispatch:
