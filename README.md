@@ -1,4 +1,4 @@
-![Fuzz status](https://github.com/LimeEng/magpie-fuzz/workflows/Fuzz%20magpie%20v0.9.0/badge.svg)
+![Fuzz status](https://github.com/LimeEng/magpie-fuzz/workflows/Fuzz%20magpie%20v0.9.1/badge.svg)
 
 # Fuzzing magpie
 
