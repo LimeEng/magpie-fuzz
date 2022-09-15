@@ -12,7 +12,7 @@ libfuzzer-sys = { version = "0.3", features = ["arbitrary-derive"] }
 
 [dependencies.magpie]
 # path = ".."
-version = "0.9.1"
+version = "0.10"
 
 # Prevent this from interfering with workspaces
 [workspace]

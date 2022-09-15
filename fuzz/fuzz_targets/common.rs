@@ -1,15 +1,15 @@
 use libfuzzer_sys::arbitrary;
 use libfuzzer_sys::arbitrary::{Arbitrary, Unstructured};
-use magpie::othello::{OthelloBoard, OthelloError};
+use magpie::othello::{Board, OthelloError};
 use std::convert::{From, TryFrom};
 
 #[derive(Debug, Clone)]
-pub struct ShadowOthelloBoard {
+pub struct ShadowBoard {
     black_stones: u64,
     white_stones: u64,
 }
 
-impl Arbitrary for ShadowOthelloBoard {
+impl Arbitrary for ShadowBoard {
     fn arbitrary(u: &mut Unstructured<'_>) -> arbitrary::Result<Self> {
         // Generate a random bitboard
         let bits = u64::arbitrary(u)?;
@@ -29,11 +29,11 @@ impl Arbitrary for ShadowOthelloBoard {
                 white_stones |= next_bit << i;
             }
         }
-        Ok(ShadowOthelloBoard::try_from((black_stones, white_stones)).unwrap())
+        Ok(ShadowBoard::try_from((black_stones, white_stones)).unwrap())
     }
 }
 
-impl TryFrom<(u64, u64)> for ShadowOthelloBoard {
+impl TryFrom<(u64, u64)> for ShadowBoard {
     type Error = OthelloError;
 
     fn try_from(stones: (u64, u64)) -> Result<Self, Self::Error> {
@@ -41,7 +41,7 @@ impl TryFrom<(u64, u64)> for ShadowOthelloBoard {
         if black_stones & white_stones != 0 {
             return Err(OthelloError::PiecesOverlapping);
         }
-        let board = ShadowOthelloBoard {
+        let board = ShadowBoard {
             black_stones,
             white_stones,
         };
@@ -49,8 +49,8 @@ impl TryFrom<(u64, u64)> for ShadowOthelloBoard {
     }
 }
 
-impl From<ShadowOthelloBoard> for OthelloBoard {
-    fn from(board: ShadowOthelloBoard) -> Self {
-        OthelloBoard::try_from((board.black_stones, board.white_stones)).unwrap()
+impl From<ShadowBoard> for Board {
+    fn from(board: ShadowBoard) -> Self {
+        Board::try_from((board.black_stones, board.white_stones)).unwrap()
     }
 }
