@@ -1,19 +1,18 @@
 #![no_main]
 
 use libfuzzer_sys::fuzz_target;
-use magpie::othello::{Board, Stone};
+use magpie::othello::Game;
 
 mod common;
 
-fuzz_target!(|board: common::ShadowBoard| {
+fuzz_target!(|game: common::ShadowGame| {
     // Check so that all legal moves returned can actually be placed
-    let board = Board::from(board);
-    let stone = Stone::Black;
+    let game = Game::try_from(game).unwrap();
 
-    let result = board
-        .moves_for(stone)
+    let result = game
+        .moves()
         .hot_bits()
-        .map(|pos| board.clone().place_stone(stone, pos))
+        .map(|pos| game.clone().play(pos))
         .all(|result| result.is_ok());
     assert!(result);
 });

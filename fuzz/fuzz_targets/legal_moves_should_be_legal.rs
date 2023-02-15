@@ -1,19 +1,18 @@
 #![no_main]
 
 use libfuzzer_sys::fuzz_target;
-use magpie::othello::{Board, Stone};
+use magpie::othello::Game;
 
 mod common;
 
-fuzz_target!(|board: common::ShadowBoard| {
+fuzz_target!(|game: common::ShadowGame| {
     // Check so that all legal moves returned can be individually verified as legal
-    let board = Board::from(board);
-    let stone = Stone::Black;
+    let game = Game::try_from(game).unwrap();
 
-    let result = board
-        .moves_for(stone)
+    let result = game
+        .moves()
         .hot_bits()
-        .map(|pos| board.is_legal_move(stone, pos))
+        .map(|pos| game.is_legal_move(pos))
         .all(|result| result);
     assert!(result);
 });

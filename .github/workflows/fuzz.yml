@@ -1,4 +1,4 @@
-name: Fuzz magpie v0.10
+name: Fuzz magpie v0.11
 
 on:
   workflow_dispatch:
@@ -49,4 +49,4 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: "Fuzz-target: ${{ matrix.targets }}"
         # -max_total_time=18000 (5h)
-        run: cargo fuzz run ${{ matrix.targets }} -- -max_total_time=18000 -print_final_stats -print_coverage
+        run: cargo fuzz run ${{ matrix.targets }} -- -max_total_time=18000 -print_final_stats

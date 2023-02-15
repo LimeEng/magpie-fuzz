@@ -1,23 +1,22 @@
 #![no_main]
 
 use libfuzzer_sys::fuzz_target;
-use magpie::othello::{Bitboard, Board, Position, Stone};
+use magpie::othello::{Bitboard, Game, Position};
 
 mod common;
 
-fuzz_target!(|board: common::ShadowBoard| {
+fuzz_target!(|game: common::ShadowGame| {
     // Check so that all moves not contained in the set of legal moves
     // actually is illegal
-    let board = Board::from(board);
-    let stone = Stone::Black;
+    let game = Game::try_from(game).unwrap();
 
-    let legal_positions = board.moves_for(stone);
+    let legal_positions = game.moves();
 
     let failed = Bitboard::from(u64::MAX)
         .bits()
         .filter(|pos| *pos & legal_positions == 0)
         .filter_map(|pos| Position::try_from(pos).ok())
-        .map(|pos| board.is_legal_move(stone, pos))
+        .map(|pos| game.is_legal_move(pos))
         .any(|result| result);
 
     assert!(!failed);

@@ -1,6 +1,6 @@
 use libfuzzer_sys::arbitrary;
 use libfuzzer_sys::arbitrary::{Arbitrary, Unstructured};
-use magpie::othello::{Board, OthelloError};
+use magpie::othello::{Board, Game, OthelloError, Stone};
 use std::convert::{From, TryFrom};
 
 #[derive(Debug, Clone)]
@@ -9,7 +9,7 @@ pub struct ShadowBoard {
     white_stones: u64,
 }
 
-impl Arbitrary for ShadowBoard {
+impl Arbitrary<'_> for ShadowBoard {
     fn arbitrary(u: &mut Unstructured<'_>) -> arbitrary::Result<Self> {
         // Generate a random bitboard
         let bits = u64::arbitrary(u)?;
@@ -52,5 +52,41 @@ impl TryFrom<(u64, u64)> for ShadowBoard {
 impl From<ShadowBoard> for Board {
     fn from(board: ShadowBoard) -> Self {
         Board::try_from((board.black_stones, board.white_stones)).unwrap()
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct ShadowGame {
+    board: Board,
+    next_player: Stone,
+    passed_last_turn: bool,
+}
+
+impl Arbitrary<'_> for ShadowGame {
+    fn arbitrary(u: &mut Unstructured<'_>) -> arbitrary::Result<Self> {
+        let board = ShadowBoard::arbitrary(u)?;
+        let player_black = bool::arbitrary(u)?;
+        let passed_last_turn = bool::arbitrary(u)?;
+
+        let board = Board::try_from(board).unwrap();
+        let next_player = if player_black {
+            Stone::Black
+        } else {
+            Stone::White
+        };
+
+        Ok(ShadowGame {
+            board,
+            next_player,
+            passed_last_turn,
+        })
+    }
+}
+
+impl TryFrom<ShadowGame> for Game {
+    type Error = OthelloError;
+
+    fn try_from(game: ShadowGame) -> Result<Self, Self::Error> {
+        Game::from_state(game.board, game.next_player, game.passed_last_turn)
     }
 }

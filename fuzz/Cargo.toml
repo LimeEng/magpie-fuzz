@@ -8,11 +8,11 @@ publish = false
 cargo-fuzz = true
 
 [dependencies]
-libfuzzer-sys = { version = "0.3", features = ["arbitrary-derive"] }
+libfuzzer-sys = { version = "0.4", features = ["arbitrary-derive"] }
 
 [dependencies.magpie]
 # path = ".."
-version = "0.10"
+version = "0.11"
 
 # Prevent this from interfering with workspaces
 [workspace]
