@@ -1,5 +1,7 @@
-use libfuzzer_sys::arbitrary;
-use libfuzzer_sys::arbitrary::{Arbitrary, Unstructured};
+use libfuzzer_sys::{
+    arbitrary,
+    arbitrary::{Arbitrary, Unstructured},
+};
 use magpie::othello::{Board, Game, OthelloError, Stone};
 use std::convert::{From, TryFrom};
 
@@ -68,7 +70,7 @@ impl Arbitrary<'_> for ShadowGame {
         let player_black = bool::arbitrary(u)?;
         let passed_last_turn = bool::arbitrary(u)?;
 
-        let board = Board::try_from(board).unwrap();
+        let board = Board::from(board);
         let next_player = if player_black {
             Stone::Black
         } else {
