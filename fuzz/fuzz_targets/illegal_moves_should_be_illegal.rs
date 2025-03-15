@@ -16,8 +16,7 @@ fuzz_target!(|game: common::ShadowGame| {
         .bits()
         .filter(|pos| *pos & legal_positions == 0)
         .filter_map(|pos| Position::try_from(pos).ok())
-        .map(|pos| game.is_legal_move(pos))
-        .any(|result| result);
+        .all(|pos| game.is_legal_move(pos));
 
     assert!(!failed);
 });
